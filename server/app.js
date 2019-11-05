@@ -1,18 +1,17 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const connectDB = require('./config/db');
 const app = express();
-//Cors 설정
-app.use(cors());
-//Json 설정
+const PORT = process.env.PORT || 5000;
+
+connectDB();
+
+// Middleware
 app.use(express.json({ extends: false }));
 
-const PORT = process.env.PORT;
+app.get('/', (req, res) => res.send('API RUNNiNG ...'));
 
-app.get("/", (req, res) => {
-  res.status(201).json({ test: `server를 client로 읽어오는것 성공!` });
-  res.send("API RUNNING!");
-});
+// @@ Routes
 
 app.listen(PORT, () => {
-  console.log(`Serve is up on PORT ${PORT}`);
+  console.log(`Server is up on PORT ${PORT}`);
 });
